@@ -1,6 +1,5 @@
-import express from 'express';
-import { usersRouter } from './users/users.js';
-
+import express, { type NextFunction, type Request, type Response } from 'express';
+import { usersRouter } from './users/users';
 const port = 8000;
 const app = express();
 
@@ -15,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.use('/users', usersRouter);
 
-usersRouter.use((err, req, res, next) => {
+usersRouter.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(err);
   res.status(500).send(err.message)
   next();
