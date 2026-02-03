@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "tslog": "^4.10.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
