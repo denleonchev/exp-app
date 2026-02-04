@@ -3,35 +3,35 @@ import { LoggerService } from '../logger/logger.service';
 import { IControllerRoute } from './route.interface';
 
 export abstract class ABaseController {
-  #router: Router;
-  #logger: LoggerService;
+  protected _router: Router;
+  protected logger: LoggerService;
 
   constructor(logger: LoggerService) {
-    this.#router = Router();
-    this.#logger = logger;
+    this._router = Router();
+    this.logger = logger;
   }
 
-  get router() {
-    return this.#router;
+  public get router() {
+    return this._router;
   }
 
-  send<T>(res: Response, code: number, message: T) {
+  protected send<T>(res: Response, code: number, message: T) {
     return res.status(code).json(message);
   }
 
 
-  ok<T>(res: Response, message: T) {
+  protected ok<T>(res: Response, message: T) {
     return this.send<T>(res, 200, message);
   }
 
-  created(res: Response) {
+  protected created(res: Response) {
     return res.status(201);
   }
 
-  #bindRoutes(routes: IControllerRoute[]) {
+  protected bindRoutes(routes: IControllerRoute[]) {
     for (const route of routes) {
-      this.#logger.log(`[${route.method}] ${route.path}`);
-      this.router[route.method](route.path, route.func.bind(this));
+      this.logger.log(`[${route.method}] ${route.path}`);
+      this._router[route.method](route.path, route.func.bind(this));
     }
   }
 }
