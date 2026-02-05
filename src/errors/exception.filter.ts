@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { LoggerService } from '../logger/logger.service';
 import { IExceptionFilter } from './exception.filter.interface';
 import { HTTPError } from './httpError';
@@ -10,7 +10,12 @@ export class ExceptionFilter implements IExceptionFilter {
     this.logger = logger;
   }
 
-  catch(err: Error | HTTPError, req: Request, res: Response) {
+  catch(
+    err: Error | HTTPError,
+    req: Request,
+    res: Response,
+    _next: NextFunction
+  ) {
     if (err instanceof HTTPError) {
       this.logger.error(
         `[${err.context}] Error ${err.statusCode}: ${err.message}`
