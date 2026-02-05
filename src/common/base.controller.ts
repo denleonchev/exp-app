@@ -19,7 +19,6 @@ export abstract class ABaseController {
     return res.status(code).json(message);
   }
 
-
   protected ok<T>(res: Response, message: T) {
     return this.send<T>(res, 200, message);
   }

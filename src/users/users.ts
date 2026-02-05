@@ -3,12 +3,12 @@ import express from 'express';
 export const usersRouter = express.Router();
 
 usersRouter.use((req, res, next) => {
-  console.log('Users middleware');  
+  console.log('Users middleware');
   next();
 });
 
 usersRouter.post('/login', (req, res) => {
-  throw new Error('bad')
+  throw new Error('bad');
   res.send('login');
 });
 
