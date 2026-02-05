@@ -1,19 +1,20 @@
 import express, { type Express } from 'express';
-import { usersRouter } from './users/users';
-import { Server } from 'node:http';
 import { LoggerService } from './logger/logger.service';
 import { UsersController } from './users/users.controller';
 import { ExceptionFilter } from './errors/exception.filter';
 
 export class App {
   #app: Express;
-  #server?: Server;
   #port: number;
   #logger: LoggerService;
   userController: UsersController;
   exceptionFilter: ExceptionFilter;
 
-  constructor(logger: LoggerService, userController: UsersController, exceptionFilter: ExceptionFilter) {
+  constructor(
+    logger: LoggerService,
+    userController: UsersController,
+    exceptionFilter: ExceptionFilter
+  ) {
     this.#app = express();
     this.#port = 8000;
     this.#logger = logger;
@@ -27,13 +28,13 @@ export class App {
 
   useExceptionFilters() {
     const context = this.exceptionFilter;
-    this.#app.use(this.exceptionFilter.catch.bind(context))
+    this.#app.use(this.exceptionFilter.catch.bind(context));
   }
 
   async main() {
     this.#useRoutes();
     this.useExceptionFilters();
-    this.#server = this.#app.listen(this.#port, () => {
+    this.#app.listen(this.#port, () => {
       this.#logger.log(`Server is running on localhost:${this.#port}`);
     });
   }

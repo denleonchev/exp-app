@@ -10,20 +10,19 @@ export class UsersController extends ABaseController {
       {
         path: '/register',
         method: 'post',
-        func: this.register
+        func: this.register,
       },
       {
         path: '/login',
         method: 'post',
-        func: this.login
+        func: this.login,
       },
     ]);
   }
 
-  private register(req: Request, res: Response, next: NextFunction) {
+  private register(req: Request, res: Response) {
     this.ok(res, 'register');
   }
-
 
   private login(req: Request, res: Response, next: NextFunction) {
     next(new HTTPError(401, 'Auth error', 'login'));
