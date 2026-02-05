@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ABaseController } from '../common/base.controller';
 import { LoggerService } from '../logger/logger.service';
+import { HTTPError } from '../errors/httpError';
 
 export class UsersController extends ABaseController {
   constructor(logger: LoggerService) {
@@ -25,6 +26,7 @@ export class UsersController extends ABaseController {
 
 
   private login(req: Request, res: Response, next: NextFunction) {
-    this.ok(res, 'login');
+    next(new HTTPError(401, 'Auth error', 'login'));
+    // this.ok(res, 'login');
   }
 }
