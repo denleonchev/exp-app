@@ -1,12 +1,12 @@
 import { Response, Router } from 'express';
-import { LoggerService } from '../logger/logger.service';
 import { IControllerRoute } from './route.interface';
+import { ILogger } from '../logger/logger.interface';
 
 export abstract class ABaseController {
   protected _router: Router;
-  protected logger: LoggerService;
+  protected logger: ILogger;
 
-  constructor(logger: LoggerService) {
+  constructor(logger: ILogger) {
     this._router = Router();
     this.logger = logger;
   }

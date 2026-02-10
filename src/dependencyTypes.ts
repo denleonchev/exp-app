@@ -1,0 +1,6 @@
+export const dependencyType = {
+  app: 'app',
+  iLogger: 'iLogger',
+  userConroller: 'userController',
+  exceptionFilter: 'exceptionFilter',
+};
