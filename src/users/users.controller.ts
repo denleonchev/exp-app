@@ -8,6 +8,7 @@ import { ILogger } from '../logger/logger.interface';
 import { UserRegisterDTO } from './dto/user-register.dto';
 import { UserLoginDTO } from './dto/user-login.dto';
 import { IUsersService } from './users.service.interface.';
+import { ValidateMiddleware } from '../common/validate.middleware';
 
 @injectable()
 export class UsersController extends ABaseController {
@@ -21,6 +22,7 @@ export class UsersController extends ABaseController {
         path: '/register',
         method: 'post',
         func: this.register,
+        middlewares: [new ValidateMiddleware(UserRegisterDTO)],
       },
       {
         path: '/login',
