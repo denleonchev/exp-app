@@ -5,6 +5,8 @@ import { ABaseController } from '../common/base.controller';
 import { HTTPError } from '../errors/httpError';
 import { dependencyType } from '../dependencyTypes';
 import { ILogger } from '../logger/logger.interface';
+import { UserRegisterDTO } from './dto/user-register.dto';
+import { UserLoginDTO } from './dto/user-login.dto';
 
 @injectable()
 export class UsersController extends ABaseController {
@@ -24,11 +26,18 @@ export class UsersController extends ABaseController {
     ]);
   }
 
-  private register(req: Request, res: Response) {
+  private register(
+    req: Request<unknown, unknown, UserRegisterDTO>,
+    res: Response
+  ) {
     this.ok(res, 'register');
   }
 
-  private login(req: Request, res: Response, next: NextFunction) {
+  private login(
+    req: Request<unknown, unknown, UserLoginDTO>,
+    res: Response,
+    next: NextFunction
+  ) {
     next(new HTTPError(401, 'Auth error', 'login'));
     // this.ok(res, 'login');
   }
