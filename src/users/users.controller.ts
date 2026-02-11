@@ -7,10 +7,14 @@ import { dependencyType } from '../dependencyTypes';
 import { ILogger } from '../logger/logger.interface';
 import { UserRegisterDTO } from './dto/user-register.dto';
 import { UserLoginDTO } from './dto/user-login.dto';
+import { IUsersService } from './users.service.interface.';
 
 @injectable()
 export class UsersController extends ABaseController {
-  constructor(@inject(dependencyType.iLogger) logger: ILogger) {
+  constructor(
+    @inject(dependencyType.iLogger) logger: ILogger,
+    @inject(dependencyType.usersService) private usersService: IUsersService
+  ) {
     super(logger);
     this.bindRoutes([
       {
@@ -26,11 +30,16 @@ export class UsersController extends ABaseController {
     ]);
   }
 
-  private register(
+  private async register(
     req: Request<unknown, unknown, UserRegisterDTO>,
-    res: Response
+    res: Response,
+    next: NextFunction
   ) {
-    this.ok(res, 'register');
+    const newUser = await this.usersService.createUser(req.body);
+    if (!newUser) {
+      return next(new HTTPError(422, 'User exists'));
+    }
+    this.ok(res, newUser);
   }
 
   private login(

@@ -30,7 +30,13 @@ export abstract class ABaseController {
   protected bindRoutes(routes: IControllerRoute[]) {
     for (const route of routes) {
       this.logger.log(`[${route.method}] ${route.path}`);
-      this._router[route.method](route.path, route.func.bind(this));
+      const boundMiddlewares = route.middlewares?.map((middleware) =>
+        middleware.execute.bind(middleware)
+      );
+      const pipeline = boundMiddlewares
+        ? [...boundMiddlewares, route.func.bind(this)]
+        : route.func.bind(this);
+      this._router[route.method](route.path, pipeline);
     }
   }
 }

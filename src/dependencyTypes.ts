@@ -3,4 +3,5 @@ export const dependencyType = {
   iLogger: 'iLogger',
   userConroller: 'userController',
   exceptionFilter: 'exceptionFilter',
+  usersService: 'usersService',
 };
