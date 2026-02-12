@@ -6,7 +6,7 @@ import { ExceptionFilter } from './errors/exception.filter';
 import { dependencyType } from './dependencyTypes';
 import { ILogger } from './logger/logger.interface';
 import { json } from 'body-parser';
-import { IConfigService } from './config/config.service.interface';
+import { DatabaseService } from './database/database.service';
 
 export class App {
   private app: Express;
@@ -18,8 +18,8 @@ export class App {
     private userController: UsersController,
     @inject(dependencyType.exceptionFilter)
     private exceptionFilter: ExceptionFilter,
-    @inject(dependencyType.configService)
-    private configService: IConfigService
+    @inject(dependencyType.databaseService)
+    private databaseService: DatabaseService
   ) {
     this.app = express();
     this.port = 8000;
@@ -45,6 +45,7 @@ export class App {
     this.userMiddleware();
     this.useRoutes();
     this.useExceptionFilters();
+    await this.databaseService.connect();
     this.app.listen(this.port, () => {
       this.logger.log(`Server is running on localhost:${this.port}`);
     });

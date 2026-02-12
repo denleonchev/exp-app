@@ -5,4 +5,5 @@ export const dependencyType = {
   exceptionFilter: 'exceptionFilter',
   usersService: 'usersService',
   configService: 'configService',
+  databaseService: 'databaseService',
 };

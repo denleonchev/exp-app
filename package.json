@@ -5,21 +5,25 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/index.js  --env-file=.env",
     "dev": "nodemon --config nodemon.dev.json",
     "dev:inspect": "nodemon --config nodemon.dev.inspect.json",
     "prepare": "husky",
     "format": "prettier --write --ignore-unknown",
-    "lint": "eslint --cache --fix"
+    "lint": "eslint --cache --fix",
+    "generate": "prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.4.0",
+    "@prisma/client": "^7.4.0",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
+    "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "inversify": "^7.11.0",
     "reflect-metadata": "^0.2.2",
@@ -28,6 +32,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.6",
     "@types/node": "^25.2.0",
     "eslint": "^9.39.2",
@@ -37,6 +42,7 @@
     "lint-staged": "^16.2.7",
     "nodemon": "^3.1.11",
     "prettier": "^3.8.1",
+    "prisma": "^7.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0"
