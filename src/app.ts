@@ -6,7 +6,7 @@ import { ExceptionFilter } from './errors/exception.filter';
 import { dependencyType } from './dependencyTypes';
 import { ILogger } from './logger/logger.interface';
 import { json } from 'body-parser';
-import { DatabaseService } from './database/database.service';
+import { IDatabaseService } from './database/database.service.interface';
 
 export class App {
   private app: Express;
@@ -19,7 +19,7 @@ export class App {
     @inject(dependencyType.exceptionFilter)
     private exceptionFilter: ExceptionFilter,
     @inject(dependencyType.databaseService)
-    private databaseService: DatabaseService
+    private databaseService: IDatabaseService
   ) {
     this.app = express();
     this.port = 8000;

@@ -4,13 +4,14 @@ import { PrismaClient } from '../generated/prisma/client';
 import { dependencyType } from '../dependencyTypes';
 import { IConfigService } from '../config/config.service.interface';
 import { ILogger } from '../logger/logger.interface';
+import { IDatabaseService } from './database.service.interface';
 
 @injectable()
-export class DatabaseService {
+export class DatabaseService implements IDatabaseService {
   private databaseClient: PrismaClient;
 
   constructor(
-    @inject(dependencyType.configService) private configService: IConfigService,
+    @inject(dependencyType.configService) configService: IConfigService,
     @inject(dependencyType.iLogger) private logger: ILogger
   ) {
     const databaseUrl = configService.get('DATABASE_URL');
