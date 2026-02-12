@@ -13,12 +13,12 @@ export class UsersService implements IUsersService {
     private configService: IConfigService
   ) {}
   async createUser({ email, name, password }: UserRegisterDTO) {
-    const newUser = new User(email!, name!);
+    const newUser = new User(email, name);
     const salt = this.configService.get('SALT');
     if (!salt) {
       throw new Error('SALT env var is required');
     }
-    await newUser.setHashedPassword(password!, salt);
+    await newUser.setHashedPassword(password, salt);
 
     return newUser;
   }

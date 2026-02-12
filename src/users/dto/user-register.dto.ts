@@ -4,13 +4,13 @@ export class UserRegisterDTO {
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  email?: string;
+  email!: string;
 
   @IsNotEmpty()
   @IsString()
-  password?: string;
+  password!: string;
 
   @IsNotEmpty()
   @IsString()
-  name?: string;
+  name!: string;
 }
