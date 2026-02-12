@@ -13,6 +13,8 @@ import { IExceptionFilter } from './errors/exception.filter.interface';
 import { ABaseController } from './common/base.controller';
 import { IUsersService } from './users/users.service.interface.';
 import { UsersService } from './users/users.service';
+import { IConfigService } from './config/config.service.interface';
+import { ConfigService } from './config/config.service';
 
 const containerModule = new ContainerModule(
   ({ bind }: ContainerModuleLoadOptions) => {
@@ -21,6 +23,9 @@ const containerModule = new ContainerModule(
     bind<ABaseController>(dependencyType.userConroller).to(UsersController);
     bind<IExceptionFilter>(dependencyType.exceptionFilter).to(ExceptionFilter);
     bind<IUsersService>(dependencyType.usersService).to(UsersService);
+    bind<IConfigService>(dependencyType.configService)
+      .to(ConfigService)
+      .inSingletonScope();
   }
 );
 

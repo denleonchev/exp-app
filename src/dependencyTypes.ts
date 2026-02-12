@@ -4,4 +4,5 @@ export const dependencyType = {
   userConroller: 'userController',
   exceptionFilter: 'exceptionFilter',
   usersService: 'usersService',
+  configService: 'configService',
 };

@@ -6,6 +6,7 @@ import { ExceptionFilter } from './errors/exception.filter';
 import { dependencyType } from './dependencyTypes';
 import { ILogger } from './logger/logger.interface';
 import { json } from 'body-parser';
+import { IConfigService } from './config/config.service.interface';
 
 export class App {
   private app: Express;
@@ -16,7 +17,9 @@ export class App {
     @inject(dependencyType.userConroller)
     private userController: UsersController,
     @inject(dependencyType.exceptionFilter)
-    private exceptionFilter: ExceptionFilter
+    private exceptionFilter: ExceptionFilter,
+    @inject(dependencyType.configService)
+    private configService: IConfigService
   ) {
     this.app = express();
     this.port = 8000;
