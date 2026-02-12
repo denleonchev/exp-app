@@ -19,8 +19,7 @@ export class User {
     return this.hashedPassword;
   }
 
-  async setHashedPassword(password: string) {
-    const salt = 10;
+  async setHashedPassword(password: string, salt: string) {
     this.hashedPassword = await hash(password, salt);
   }
 }

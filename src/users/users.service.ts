@@ -14,7 +14,11 @@ export class UsersService implements IUsersService {
   ) {}
   async createUser({ email, name, password }: UserRegisterDTO) {
     const newUser = new User(email!, name!);
-    await newUser.setHashedPassword(password!);
+    const salt = this.configService.get('SALT');
+    if (!salt) {
+      throw new Error('SALT env var is required');
+    }
+    await newUser.setHashedPassword(password!, salt);
 
     return newUser;
   }
