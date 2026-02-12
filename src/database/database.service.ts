@@ -8,7 +8,7 @@ import { IDatabaseService } from './database.service.interface';
 
 @injectable()
 export class DatabaseService implements IDatabaseService {
-  private databaseClient: PrismaClient;
+  client: PrismaClient;
 
   constructor(
     @inject(dependencyType.configService) configService: IConfigService,
@@ -19,12 +19,12 @@ export class DatabaseService implements IDatabaseService {
       throw new Error('DATABASE_URL env var is required');
     }
     const adapter = new PrismaBetterSqlite3({ url: databaseUrl });
-    this.databaseClient = new PrismaClient({ adapter });
+    this.client = new PrismaClient({ adapter });
   }
 
   async connect() {
     try {
-      await this.databaseClient.$connect();
+      await this.client.$connect();
       this.logger.log('Connected to the database');
     } catch (error) {
       if (error instanceof Error) {
@@ -35,6 +35,6 @@ export class DatabaseService implements IDatabaseService {
   }
 
   async disconnect() {
-    this.databaseClient.$disconnect();
+    this.client.$disconnect();
   }
 }

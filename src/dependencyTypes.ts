@@ -6,4 +6,5 @@ export const dependencyType = {
   usersService: 'usersService',
   configService: 'configService',
   databaseService: 'databaseService',
+  usersRepository: 'usersRepository',
 };

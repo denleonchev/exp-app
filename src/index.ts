@@ -17,6 +17,8 @@ import { IConfigService } from './config/config.service.interface';
 import { ConfigService } from './config/config.service';
 import { DatabaseService } from './database/database.service';
 import { IDatabaseService } from './database/database.service.interface';
+import { IUsersRepository } from './users/users.repository.interface';
+import { UsersRepository } from './users/users.repository';
 
 const containerModule = new ContainerModule(
   ({ bind }: ContainerModuleLoadOptions) => {
@@ -29,6 +31,7 @@ const containerModule = new ContainerModule(
       .to(ConfigService)
       .inSingletonScope();
     bind<IDatabaseService>(dependencyType.databaseService).to(DatabaseService);
+    bind<IUsersRepository>(dependencyType.usersRepository).to(UsersRepository);
   }
 );
 
