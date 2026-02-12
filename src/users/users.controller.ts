@@ -44,12 +44,15 @@ export class UsersController extends ABaseController {
     this.ok(res, newUser);
   }
 
-  private login(
+  private async login(
     req: Request<unknown, unknown, UserLoginDTO>,
     res: Response,
     next: NextFunction
   ) {
-    next(new HTTPError(401, 'Auth error', 'login'));
-    // this.ok(res, 'login');
+    const validationResult = await this.usersService.validateUser(req.body);
+    if (!validationResult) {
+      return next(new HTTPError(401, 'Auth error', 'login'));
+    }
+    this.ok(res, 'login');
   }
 }

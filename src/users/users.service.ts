@@ -25,11 +25,19 @@ export class UsersService implements IUsersService {
     if (!salt) {
       throw new Error('SALT env var is required');
     }
-    await newUser.setHashedPassword(password, salt);
+    const hashedPassword = await newUser.createHashedPassword(password, salt);
+    newUser.setHashedPassword(hashedPassword);
     return this.usersRepository.createUser(newUser);
   }
 
-  async validateUser(_dto: UserLoginDTO) {
-    return await Promise.resolve(true);
+  async validateUser({ email, password }: UserLoginDTO) {
+    const existingUser = await this.usersRepository.findUserByEmail(email);
+    if (!existingUser) {
+      return false;
+    }
+
+    const user = new User(existingUser.email, existingUser.name);
+    user.setHashedPassword(existingUser.password);
+    return await user.comparePasswords(password);
   }
 }

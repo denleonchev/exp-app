@@ -1,4 +1,4 @@
-import { hash } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 
 export class User {
   private hashedPassword!: string;
@@ -19,7 +19,15 @@ export class User {
     return this.hashedPassword;
   }
 
-  async setHashedPassword(password: string, salt: number) {
-    this.hashedPassword = await hash(password, salt);
+  setHashedPassword(hashedPassword: string) {
+    this.hashedPassword = hashedPassword;
+  }
+
+  async createHashedPassword(password: string, salt: number) {
+    return await hash(password, salt);
+  }
+
+  async comparePasswords(password: string) {
+    return await compare(password, this.getHashedPassword());
   }
 }
