@@ -7,6 +7,8 @@ import { dependencyType } from './dependencyTypes';
 import { ILogger } from './logger/logger.interface';
 import { json } from 'body-parser';
 import { IDatabaseService } from './database/database.service.interface';
+import { AuthMiddleware } from './common/auth.middleware';
+import { IConfigService } from './config/config.service.interface';
 
 export class App {
   private app: Express;
@@ -19,7 +21,8 @@ export class App {
     @inject(dependencyType.exceptionFilter)
     private exceptionFilter: ExceptionFilter,
     @inject(dependencyType.databaseService)
-    private databaseService: IDatabaseService
+    private databaseService: IDatabaseService,
+    @inject(dependencyType.configService) private configService: IConfigService
   ) {
     this.app = express();
     this.port = 8000;
@@ -34,6 +37,12 @@ export class App {
 
   private userMiddleware() {
     this.app.use(json());
+    const secret = this.configService.get('SECRET');
+    if (!secret) {
+      throw new Error('SECRET env var is required');
+    }
+    const authMiddleware = new AuthMiddleware(secret);
+    this.app.use(authMiddleware.execute.bind(authMiddleware));
   }
 
   private useExceptionFilters() {
