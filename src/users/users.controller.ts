@@ -11,6 +11,7 @@ import { IUsersService } from './users.service.interface.';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { sign } from 'jsonwebtoken';
 import { IConfigService } from '../config/config.service.interface';
+import { AuthGuardMiddleware } from '../common/authGuard.middleware';
 
 @injectable()
 export class UsersController extends ABaseController {
@@ -20,6 +21,10 @@ export class UsersController extends ABaseController {
     @inject(dependencyType.configService) private configService: IConfigService
   ) {
     super(logger);
+    const secret = configService.get('SECRET');
+    if (!secret) {
+      throw new Error('SECRET is required env var');
+    }
     this.bindRoutes([
       {
         path: '/register',
@@ -31,6 +36,12 @@ export class UsersController extends ABaseController {
         path: '/login',
         method: 'post',
         func: this.login,
+      },
+      {
+        path: '/info',
+        method: 'get',
+        func: this.info,
+        middlewares: [new AuthGuardMiddleware(secret)],
       },
     ]);
   }
@@ -62,6 +73,15 @@ export class UsersController extends ABaseController {
     }
     const jwt = await this.signJWT(req.body.email, secret);
     this.ok(res, { jwt });
+  }
+
+  private async info(req: Request, res: Response, next: NextFunction) {
+    const email = req.email!;
+    const user = await this.usersService.getUser(email);
+    if (!user) {
+      return next(new HTTPError(404, 'No such user', 'info'));
+    }
+    this.ok(res, { id: user.id, name: user.name, email: user.email });
   }
 
   private async signJWT(email: string, secret: string) {

@@ -21,7 +21,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   findUserByEmail(email: string) {
-    return this.databaseService.client.userModel.findFirst({
+    return this.databaseService.client.userModel.findUnique({
       where: {
         email,
       },

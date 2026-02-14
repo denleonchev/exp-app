@@ -40,4 +40,13 @@ export class UsersService implements IUsersService {
     user.setHashedPassword(existingUser.password);
     return await user.comparePasswords(password);
   }
+
+  async getUser(email: string) {
+    const user = await this.usersRepository.findUserByEmail(email);
+    if (user) {
+      return user;
+    }
+
+    return null;
+  }
 }
