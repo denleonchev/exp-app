@@ -12,7 +12,7 @@
     "emitDecoratorMetadata": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "noEmit": false,
     "typeRoots": [
       "./src/types",
