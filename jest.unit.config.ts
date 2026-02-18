@@ -4,13 +4,8 @@ const config: Config = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
+  rootDir: './src',
   testMatch: ['**/*.spec.ts'],
-  moduleFileExtensions: ['ts', 'js', 'json'],
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.interface.ts',
-    '!src/**/*.d.ts',
-  ],
 };
 
 export default config;

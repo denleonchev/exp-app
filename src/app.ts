@@ -9,10 +9,12 @@ import { json } from 'body-parser';
 import { IDatabaseService } from './database/database.service.interface';
 import { AuthMiddleware } from './common/auth.middleware';
 import { IConfigService } from './config/config.service.interface';
+import { Server } from 'node:http';
 
 export class App {
   private app: Express;
   private port: number;
+  server?: Server;
 
   constructor(
     @inject(dependencyType.iLogger) private logger: ILogger,
@@ -55,8 +57,12 @@ export class App {
     this.useRoutes();
     this.useExceptionFilters();
     await this.databaseService.connect();
-    this.app.listen(this.port, () => {
+    this.server = this.app.listen(this.port, () => {
       this.logger.log(`Server is running on localhost:${this.port}`);
     });
+  }
+
+  close() {
+    this.server?.close();
   }
 }

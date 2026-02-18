@@ -3,4 +3,4 @@ dist
 .eslintcache
 src/generated/prisma
 dev.db
-.env
+*.env
