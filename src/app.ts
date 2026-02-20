@@ -1,15 +1,17 @@
 import 'reflect-metadata';
-import { inject } from 'inversify';
-import express, { type Express } from 'express';
-import { UsersController } from './users/users.controller';
-import { ExceptionFilter } from './errors/exception.filter';
-import { dependencyType } from './dependencyTypes';
-import { ILogger } from './logger/logger.interface';
+import { Server } from 'node:http';
+
 import { json } from 'body-parser';
-import { IDatabaseService } from './database/database.service.interface';
+import express, { type Express } from 'express';
+import { inject } from 'inversify';
+
 import { AuthMiddleware } from './common/auth.middleware';
 import { IConfigService } from './config/config.service.interface';
-import { Server } from 'node:http';
+import { IDatabaseService } from './database/database.service.interface';
+import { dependencyType } from './dependencyTypes';
+import { ExceptionFilter } from './errors/exception.filter';
+import { ILogger } from './logger/logger.interface';
+import { UsersController } from './users/users.controller';
 
 export class App {
   private app: Express;

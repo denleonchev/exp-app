@@ -3,22 +3,23 @@ import {
   ContainerModule,
   ContainerModuleLoadOptions,
 } from 'inversify';
+
 import { App } from './app';
-import { ExceptionFilter } from './errors/exception.filter';
-import { LoggerService } from './logger/logger.service';
-import { UsersController } from './users/users.controller';
-import { ILogger } from './logger/logger.interface';
-import { dependencyType } from './dependencyTypes';
-import { IExceptionFilter } from './errors/exception.filter.interface';
 import { ABaseController } from './common/base.controller';
-import { IUsersService } from './users/users.service.interface.';
-import { UsersService } from './users/users.service';
-import { IConfigService } from './config/config.service.interface';
 import { ConfigService } from './config/config.service';
+import { IConfigService } from './config/config.service.interface';
 import { DatabaseService } from './database/database.service';
 import { IDatabaseService } from './database/database.service.interface';
-import { IUsersRepository } from './users/users.repository.interface';
+import { dependencyType } from './dependencyTypes';
+import { ExceptionFilter } from './errors/exception.filter';
+import { IExceptionFilter } from './errors/exception.filter.interface';
+import { ILogger } from './logger/logger.interface';
+import { LoggerService } from './logger/logger.service';
+import { UsersController } from './users/users.controller';
 import { UsersRepository } from './users/users.repository';
+import { IUsersRepository } from './users/users.repository.interface';
+import { UsersService } from './users/users.service';
+import { IUsersService } from './users/users.service.interface.';
 
 export const main = async () => {
   const containerModule = new ContainerModule(

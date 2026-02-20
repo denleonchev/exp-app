@@ -1,5 +1,6 @@
-import request from 'supertest';
 import { config } from 'dotenv';
+import request from 'supertest';
+
 import { App } from '../src/app';
 import { main } from '../src/main';
 

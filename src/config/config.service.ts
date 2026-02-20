@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+
 import { IConfigService } from './config.service.interface';
 
 injectable();

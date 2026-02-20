@@ -1,17 +1,22 @@
 import 'reflect-metadata';
-import { inject, injectable } from 'inversify';
 import { NextFunction, Request, Response } from 'express';
-import { ABaseController } from '../common/base.controller';
-import { HTTPError } from '../errors/httpError';
-import { dependencyType } from '../dependencyTypes';
-import { ILogger } from '../logger/logger.interface';
-import { UserRegisterDTO } from './dto/user-register.dto';
-import { UserLoginDTO } from './dto/user-login.dto';
-import { IUsersService } from './users.service.interface.';
-import { ValidateMiddleware } from '../common/validate.middleware';
+import { inject, injectable } from 'inversify';
 import { sign } from 'jsonwebtoken';
-import { IConfigService } from '../config/config.service.interface';
+
 import { AuthGuardMiddleware } from '../common/authGuard.middleware';
+import { ABaseController } from '../common/base.controller';
+import { ValidateMiddleware } from '../common/validate.middleware';
+import { IConfigService } from '../config/config.service.interface';
+import { dependencyType } from '../dependencyTypes';
+import { HTTPError } from '../errors/httpError';
+import { ILogger } from '../logger/logger.interface';
+
+import { UserLoginDTO } from './dto/user-login.dto';
+import { UserRegisterDTO } from './dto/user-register.dto';
+import { IUsersService } from './users.service.interface.';
+
+
+
 
 @injectable()
 export class UsersController extends ABaseController {

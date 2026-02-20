@@ -1,9 +1,11 @@
-import { inject, injectable } from 'inversify';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
-import { PrismaClient } from '../generated/prisma/client';
-import { dependencyType } from '../dependencyTypes';
+import { inject, injectable } from 'inversify';
+
 import { IConfigService } from '../config/config.service.interface';
+import { dependencyType } from '../dependencyTypes';
+import { PrismaClient } from '../generated/prisma/client';
 import { ILogger } from '../logger/logger.interface';
+
 import { IDatabaseService } from './database.service.interface';
 
 @injectable()

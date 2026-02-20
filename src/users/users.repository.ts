@@ -1,8 +1,10 @@
 import { inject } from 'inversify';
+
+import { IDatabaseService } from '../database/database.service.interface';
+import { dependencyType } from '../dependencyTypes';
+
 import { User } from './user.entity';
 import { IUsersRepository } from './users.repository.interface';
-import { dependencyType } from '../dependencyTypes';
-import { IDatabaseService } from '../database/database.service.interface';
 
 export class UsersRepository implements IUsersRepository {
   constructor(

@@ -1,6 +1,8 @@
 import { Response, Router } from 'express';
-import { IControllerRoute } from './route.interface';
+
 import { ILogger } from '../logger/logger.interface';
+
+import { IControllerRoute } from './route.interface';
 
 export abstract class ABaseController {
   protected _router: Router;

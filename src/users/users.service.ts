@@ -1,11 +1,13 @@
 import { inject, injectable } from 'inversify';
+
+import { IConfigService } from '../config/config.service.interface';
+import { dependencyType } from '../dependencyTypes';
+
 import { UserLoginDTO } from './dto/user-login.dto';
 import { UserRegisterDTO } from './dto/user-register.dto';
-import { IUsersService } from './users.service.interface.';
 import { User } from './user.entity';
-import { dependencyType } from '../dependencyTypes';
-import { IConfigService } from '../config/config.service.interface';
 import { IUsersRepository } from './users.repository.interface';
+import { IUsersService } from './users.service.interface.';
 
 @injectable()
 export class UsersService implements IUsersService {

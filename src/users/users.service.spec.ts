@@ -1,12 +1,14 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { IConfigService } from '../config/config.service.interface';
-import { IUsersRepository } from './users.repository.interface';
-import { IUsersService } from './users.service.interface.';
-import { dependencyType } from '../dependencyTypes';
-import { UsersService } from './users.service';
+
 import { ConfigService } from '../config/config.service';
+import { IConfigService } from '../config/config.service.interface';
+import { dependencyType } from '../dependencyTypes';
+
 import { User } from './user.entity';
+import { IUsersRepository } from './users.repository.interface';
+import { UsersService } from './users.service';
+import { IUsersService } from './users.service.interface.';
 
 const configServiceMock: IConfigService = {
   get: jest.fn(),

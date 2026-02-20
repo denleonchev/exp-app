@@ -1,10 +1,13 @@
 import 'reflect-metadata';
-import { injectable, inject } from 'inversify';
 import { NextFunction, Request, Response } from 'express';
-import { IExceptionFilter } from './exception.filter.interface';
-import { HTTPError } from './httpError';
+import { injectable, inject } from 'inversify';
+
 import { dependencyType } from '../dependencyTypes';
 import { ILogger } from '../logger/logger.interface';
+
+import { IExceptionFilter } from './exception.filter.interface';
+import { HTTPError } from './httpError';
+
 
 injectable();
 export class ExceptionFilter implements IExceptionFilter {
