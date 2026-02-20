@@ -26,10 +26,7 @@ export class UsersController extends ABaseController {
     @inject(dependencyType.configService) private configService: IConfigService
   ) {
     super(logger);
-    const secret = configService.get('SECRET');
-    if (!secret) {
-      throw new Error('SECRET is required env var');
-    }
+    const secret = configService.secret;
     this.bindRoutes([
       {
         path: '/register',
@@ -72,10 +69,7 @@ export class UsersController extends ABaseController {
     if (!validationResult) {
       return next(new HTTPError(401, 'Auth error', 'login'));
     }
-    const secret = this.configService.get('SECRET');
-    if (!secret) {
-      throw new Error('SECRET env var is required');
-    }
+    const secret = this.configService.secret;
     const jwt = await this.signJWT(req.body.email, secret);
     this.ok(res, { jwt });
   }

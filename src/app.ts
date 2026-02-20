@@ -33,6 +33,13 @@ export class App {
     this.logger = logger;
     this.userController = userController;
     this.exceptionFilter = exceptionFilter;
+    this.handleUncaughtExceptions();
+  }
+
+  handleUncaughtExceptions() {
+    process.on('uncaughtException', (err) => {
+        this.logger.error(err);
+    })
   }
 
   private useRoutes() {
@@ -41,10 +48,7 @@ export class App {
 
   private userMiddleware() {
     this.app.use(json());
-    const secret = this.configService.get('SECRET');
-    if (!secret) {
-      throw new Error('SECRET env var is required');
-    }
+    const secret = this.configService.secret;
     const authMiddleware = new AuthMiddleware(secret);
     this.app.use(authMiddleware.execute.bind(authMiddleware));
   }
@@ -55,6 +59,7 @@ export class App {
   }
 
   async main() {
+    await this.configService.validate();
     this.userMiddleware();
     this.useRoutes();
     this.useExceptionFilters();

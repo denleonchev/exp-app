@@ -16,10 +16,7 @@ export class DatabaseService implements IDatabaseService {
     @inject(dependencyType.configService) configService: IConfigService,
     @inject(dependencyType.iLogger) private logger: ILogger
   ) {
-    const databaseUrl = configService.get('DATABASE_URL');
-    if (!databaseUrl) {
-      throw new Error('DATABASE_URL env var is required');
-    }
+    const databaseUrl = configService.databaseURL;
     const adapter = new PrismaBetterSqlite3({ url: databaseUrl });
     this.client = new PrismaClient({ adapter });
   }

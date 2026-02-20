@@ -11,7 +11,9 @@ import { UsersService } from './users.service';
 import { IUsersService } from './users.service.interface.';
 
 const configServiceMock: IConfigService = {
-  get: jest.fn(),
+  databaseURL: 'testUrl',
+  salt: 1,
+  secret: 'secret'
 };
 const usersRepositoryMock: IUsersRepository = {
   createUser: jest.fn(),

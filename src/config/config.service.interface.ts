@@ -1,3 +1,6 @@
 export interface IConfigService {
-  get: (key: string) => string | undefined;
+  databaseURL: string
+  salt: number
+  secret: string
+  validate: () => Promise<void>
 }

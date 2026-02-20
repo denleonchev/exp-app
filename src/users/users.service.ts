@@ -23,10 +23,7 @@ export class UsersService implements IUsersService {
       return null;
     }
     const newUser = new User(email, name);
-    const salt = Number(this.configService.get('SALT'));
-    if (!salt) {
-      throw new Error('SALT env var is required');
-    }
+    const salt = this.configService.salt;
     const hashedPassword = await newUser.createHashedPassword(password, salt);
     newUser.setHashedPassword(hashedPassword);
     return this.usersRepository.createUser(newUser);
